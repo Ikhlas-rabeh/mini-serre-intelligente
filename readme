@@ -1,0 +1,61 @@
+# Mini-Serre Intelligente
+
+This project is a **smart mini greenhouse** that measures soil moisture, temperature, humidity, and light, and can automatically control a lamp and water pump. Data is sent over **MQTT** and visualized in **Node-RED**.
+
+## Features
+
+- Reads sensors:
+  - Soil moisture (potentiometer)
+  - Temperature & humidity (DHT22)
+  - Light (LDR)
+- Publishes data to MQTT topics:
+  - `mini-serre/soil`
+  - `mini-serre/temperature`
+  - `mini-serre/humidity`
+  - `mini-serre/light`
+  - `mini-serre/lamp` (ON/OFF)
+  - `mini-serre/soil_watering` (ON/OFF)
+- Automatic lamp & watering control based on thresholds
+- Visualization on Node-RED dashboard
+
+## Folder Structure
+
+mini-serre-project/
+├─ firmware/ # ESP32 code
+│ ├─ main.cpp
+│ └─ platformio.ini
+├─ node-red/ # Node-RED flow
+│ └─ mini-serre-flow.json
+├─ diagrams/ # Wokwi simulation diagram
+│ └─ diagram.json
+├─ README.md
+└─ .gitignore
+
+
+## How to Use
+
+### ESP32
+
+1. Open `firmware/main.cpp` in **VSCode / PlatformIO / Arduino IDE**.  
+2. Update Wi-Fi credentials in the code (`ssid` and `password`).  
+3. Upload the firmware to your ESP32.  
+4. Make sure the ESP32 can reach the MQTT broker (public or local).
+
+### Node-RED
+
+1. Open Node-RED in your browser.  
+2. Import the flow in `node-red/mini-serre-flow.json`.  
+3. Deploy the flow.  
+4. Open the dashboard: `http://localhost:1880/ui`.  
+5. You should see real-time sensor data and lamp/water status.
+
+## MQTT Broker
+
+- Public broker (for simulation/Wokwi): `test.mosquitto.org:1883`  
+- Local broker (for physical ESP32): use your local Mosquitto IP and port.  
+
+## Notes
+
+- Keep your Wi-Fi and MQTT credentials **private**.  
+- You can adjust sensor thresholds in the ESP32 code to match your mini-serre.
+
